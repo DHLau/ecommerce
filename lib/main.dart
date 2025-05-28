@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/config/theme/app_theme.dart';
 import 'package:ecommerce/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ecommerce/presentation/splash/pages/splash.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       create: (context) {
         return SplashCubit()..appStated();
       },
-      child: MaterialApp(home: const SpalshPage()),
+      child: MaterialApp(home: const SpalshPage(), theme: AppTheme.appTheme),
     );
   }
 }
