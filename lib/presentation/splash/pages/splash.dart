@@ -1,3 +1,4 @@
+import 'package:ecommerce/common/helper/navigator/app_navigator.dart';
 import 'package:ecommerce/core/config/assets/app_vectors.dart';
 import 'package:ecommerce/core/config/theme/app_colors.dart';
 import 'package:ecommerce/presentation/auth/pages/signin.dart';
@@ -16,10 +17,7 @@ class SpalshPage extends StatelessWidget {
       listener: (context, state) {
         if (state is UnAuthenticated) {
           // Navigate to the SigninPage
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const SigninPage()),
-          );
+          AppNavigator.pushReplacement(context, SigninPage());
         }
       },
       child: Scaffold(

@@ -1,5 +1,6 @@
 import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/presentation/auth/pages/enter_password.dart';
+import 'package:ecommerce/presentation/auth/pages/signin.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,7 @@ class SignUpPage extends StatelessWidget {
   Widget _continueButton(BuildContext context) {
     return BasicAppButton(
       onPressed: () {
-        AppNavigator.push(context, const EnterPasswordPage());
+        AppNavigator.pushReplacement(context, const SigninPage());
       },
       title: "Continue",
     );
