@@ -1,12 +1,14 @@
 import 'package:ecommerce/common/bloc/button/button_state.dart';
 import 'package:ecommerce/common/bloc/button/button_state_cubit.dart';
 import 'package:ecommerce/common/helper/bottomsheet/app_bottomsheet.dart';
+import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/core/configs/theme/app_colors.dart';
 import 'package:ecommerce/data/auth/models/user_creation_req.dart';
 import 'package:ecommerce/domain/auth/usecases/signup.dart';
 import 'package:ecommerce/presentation/auth/bloc/age_selection_cubit.dart';
 import 'package:ecommerce/presentation/auth/bloc/ages_display_cubit.dart';
 import 'package:ecommerce/presentation/auth/bloc/gender_selection_cubit.dart';
+import 'package:ecommerce/presentation/auth/pages/signin.dart';
 import 'package:ecommerce/presentation/auth/widgets/ages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +42,8 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
               // ScaffoldMessenger.of(context)是一个widget, 用于显示一个提示框
               // showSnackBar是一个方法, 用于显示一个提示框
               ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            } else if (state is ButtonSuccessState) {
+              AppNavigator.push(context, SigninPage());
             }
           },
           child: Column(

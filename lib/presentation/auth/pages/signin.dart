@@ -1,11 +1,14 @@
 import 'package:ecommerce/common/index.dart';
+import 'package:ecommerce/data/auth/models/user_signin_req.dart';
 import 'package:ecommerce/presentation/auth/pages/enter_password.dart';
 import 'package:ecommerce/presentation/auth/pages/signup.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  SigninPage({super.key});
+
+  TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +40,24 @@ class SigninPage extends StatelessWidget {
   }
 
   Widget _emailField(BuildContext context) {
-    return TextField(decoration: InputDecoration(hintText: "Enter your email"));
+    return TextField(
+      controller: _emailController,
+      decoration: InputDecoration(hintText: "Enter your email"),
+    );
   }
 
   Widget _continueButton(BuildContext context) {
     return BasicAppButton(
       onPressed: () {
-        AppNavigator.push(context, const EnterPasswordPage());
+        AppNavigator.push(
+          context,
+          EnterPasswordPage(
+            signinReq: UserSigninReq(
+              email: _emailController.text,
+              password: "",
+            ),
+          ),
+        );
       },
       title: "Continue",
     );
