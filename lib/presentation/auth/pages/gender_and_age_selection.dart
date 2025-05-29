@@ -32,10 +32,13 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
         child: BlocListener<ButtonStateCubit, ButtonState>(
           listener: (context, state) {
             if (state is ButtonFailureState) {
+              // snackBar是一个widget, 用于显示一个提示框
               var snackbar = SnackBar(
                 content: Text(state.errorMessage),
                 behavior: SnackBarBehavior.floating,
               );
+              // ScaffoldMessenger.of(context)是一个widget, 用于显示一个提示框
+              // showSnackBar是一个方法, 用于显示一个提示框
               ScaffoldMessenger.of(context).showSnackBar(snackbar);
             }
           },
@@ -126,6 +129,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
   }
 
   Widget _age() {
+    // BlocBuilder用于根据状态显示界面
     return BlocBuilder<AgeSelectionCubit, String>(
       builder: (context, state) {
         return GestureDetector(
@@ -170,6 +174,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
           builder: (context) {
             return BasicReactiveButton(
               onPressed: () {
+                // 赋值
                 userCreationReq.gender =
                     context.read<GenderselectionCubit>().selectedIndex;
                 userCreationReq.age =

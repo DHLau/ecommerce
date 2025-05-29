@@ -19,6 +19,7 @@ class BasicReactiveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // BlocBuilder 根据 state 构建 UI
     return BlocBuilder<ButtonStateCubit, ButtonState>(
       builder: (context, state) {
         if (state is ButtonLoadingState) {
