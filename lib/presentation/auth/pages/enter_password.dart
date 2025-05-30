@@ -4,6 +4,7 @@ import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/common/widgets/button/basic_reactive_button.dart';
 import 'package:ecommerce/data/auth/models/user_signin_req.dart';
 import 'package:ecommerce/domain/auth/usecases/siginin.dart';
+import 'package:ecommerce/presentation/home/pages/home.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,9 @@ class EnterPasswordPage extends StatelessWidget {
                 var snackBar = SnackBar(content: Text(state.errorMessage));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
-              if (state is ButtonSuccessState) {}
+              if (state is ButtonSuccessState) {
+                AppNavigator.pushandRemove(context, const HomePage());
+              }
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,9 +73,9 @@ class EnterPasswordPage extends StatelessWidget {
           onPressed: () {
             signinReq.password = _passwordController.text;
             context.read<ButtonStateCubit>().execute(
-              usecase: SigninUsecase(),
-              params: signinReq,
-            );
+                  usecase: SigninUsecase(),
+                  params: signinReq,
+                );
           },
           title: "Continue",
         );
@@ -88,11 +91,10 @@ class EnterPasswordPage extends StatelessWidget {
           TextSpan(
             text: 'Reset it',
             style: TextStyle(fontWeight: FontWeight.bold),
-            recognizer:
-                TapGestureRecognizer()
-                  ..onTap = () {
-                    AppNavigator.push(context, ForgotPasswordPage());
-                  },
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AppNavigator.push(context, ForgotPasswordPage());
+              },
           ),
         ],
       ),
