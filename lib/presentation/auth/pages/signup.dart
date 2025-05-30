@@ -1,9 +1,6 @@
 import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/data/auth/models/user_creation_req.dart';
-import 'package:ecommerce/presentation/auth/pages/enter_password.dart';
 import 'package:ecommerce/presentation/auth/pages/gender_and_age_selection.dart';
-import 'package:ecommerce/presentation/auth/pages/signin.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatelessWidget {

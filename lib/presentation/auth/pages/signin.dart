@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class SigninPage extends StatelessWidget {
   SigninPage({super.key});
 
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +71,10 @@ class SigninPage extends StatelessWidget {
           TextSpan(
             text: 'Create one',
             style: TextStyle(fontWeight: FontWeight.bold),
-            recognizer:
-                TapGestureRecognizer()
-                  ..onTap = () {
-                    AppNavigator.push(context, SignUpPage());
-                  },
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AppNavigator.push(context, SignUpPage());
+              },
           ),
         ],
       ),
