@@ -4,7 +4,11 @@ class AppNavigator {
   static void pushReplacement(BuildContext context, Widget page) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => page),
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => page,
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
     );
   }
 
