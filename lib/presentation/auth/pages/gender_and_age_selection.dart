@@ -24,6 +24,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BasicAppBar(),
+      // 把 Cubit 注册到 widget 树中，这样子组件就能通过 context 访问它们，完成状态管理。
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => GenderselectionCubit()),
@@ -31,6 +32,8 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
           BlocProvider(create: (context) => AgesDisplayCubit()),
           BlocProvider(create: (context) => ButtonStateCubit()),
         ],
+        // BlocListener 会监听某个 Cubit 的状态变化，然后在状态变化时 执行某个动作，
+        // 比如弹窗、跳转页面、显示提示信息等。
         child: BlocListener<ButtonStateCubit, ButtonState>(
           listener: (context, state) {
             if (state is ButtonFailureState) {
@@ -138,6 +141,10 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
+            // 是在 把已有的 Cubit 实例重新“传递”给新的 Widget 子树
+            //（比如弹出的 bottom sheet），这样底部弹窗里也能继续使用这个 Cubit。
+            // BlocProvider.value 是为了复用已经存在的 Cubit 实例，而不是重新创建。
+            // 它常用于弹窗、对话框、Navigator 跳转等新的 widget 树上下文中，让 Cubit 状态保持一致。
             AppBottomsheet.display(
               context,
               MultiBlocProvider(
