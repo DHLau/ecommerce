@@ -11,14 +11,13 @@ class UserModel {
   final String image;
   final int gender;
 
-  UserModel({
-    required this.userId,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.image,
-    required this.gender,
-  });
+  UserModel(
+      {required this.userId,
+      required this.firstName,
+      required this.lastName,
+      required this.email,
+      required this.image,
+      required this.gender});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -33,12 +32,12 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      userId: map['userId'] as String,
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      email: map['email'] as String,
+      userId: map['userId'] ?? '',
+      firstName: map['firstName'] ?? '',
+      lastName: map['lastName'] ?? '',
+      email: map['email'] ?? '',
       image: map['image'] ?? '',
-      gender: map['gender'] as int,
+      gender: map['gender'] ?? 0,
     );
   }
 
@@ -51,12 +50,11 @@ class UserModel {
 extension UserXModel on UserModel {
   UserEntity toEntity() {
     return UserEntity(
-      userId: userId,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      image: image,
-      gender: gender,
-    );
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        image: image,
+        gender: gender);
   }
 }
