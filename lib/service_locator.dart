@@ -1,11 +1,15 @@
 import 'package:ecommerce/data/auth/repository/auth_repository_impl.dart';
 import 'package:ecommerce/data/auth/source/auth_firebase_service.dart';
+import 'package:ecommerce/data/category/repository/category_impl.dart';
+import 'package:ecommerce/data/category/source/category_firebase_service.dart';
 import 'package:ecommerce/domain/auth/repository/auth.dart';
 import 'package:ecommerce/domain/auth/usecases/get_ages.dart';
 import 'package:ecommerce/domain/auth/usecases/get_user.dart';
 import 'package:ecommerce/domain/auth/usecases/is_logged_in.dart';
 import 'package:ecommerce/domain/auth/usecases/send_password_reset_email.dart';
 import 'package:ecommerce/domain/auth/usecases/siginin.dart';
+import 'package:ecommerce/domain/category/repository/category.dart';
+import 'package:ecommerce/domain/category/usecases/get_categories.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ecommerce/domain/auth/usecases/signup.dart';
 
@@ -17,15 +21,16 @@ final sl = GetIt.instance;
 
 // 这个函数注册了所有依赖的服务/类（例如：服务类、仓库类、用例类）：
 Future<void> initializeDependencies() async {
-  // Services
+  initializeAuth();
+  initializeCategory();
+}
+
+// 这个函数注册了所有与身份验证相关的服务/类：
+Future<void> initializeAuth() async {
   // 注册 Auth Firebase 的实现
   sl.registerSingleton<AuthFirebaseService>(AuthFirebaseserviceImpl());
-
-  // Responsitories
   // 注册 Auth 仓库的实现
-  // 这是面向接口编程（依赖倒置原则）的一种常见做法
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
-
   // UserCases 业务用例（UseCase）
   sl.registerSingleton<SignupUsecase>(SignupUsecase());
   sl.registerSingleton<GetAgesUseCase>(GetAgesUseCase());
@@ -35,4 +40,14 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
   sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
+}
+
+// 这个函数注册了所有与 Category 相关的服务/类：
+Future<void> initializeCategory() async {
+// 注册 Category Firebase 的实现
+  sl.registerSingleton<CategoryFirebaseService>(CategoryFirebaseServiceImpl());
+  // 注册 Category 仓库的实现
+  sl.registerSingleton<CategoryRespository>(CategoryRepositoryImpl());
+  // UserCases 业务用例（UseCase）
+  sl.registerSingleton<GetCategoriesUseCase>(GetCategoriesUseCase());
 }
