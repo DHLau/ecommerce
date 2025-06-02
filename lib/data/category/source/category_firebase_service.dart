@@ -11,7 +11,7 @@ class CategoryFirebaseServiceImpl extends CategoryFirebaseService {
     try {
       var categories =
           await FirebaseFirestore.instance.collection('Categories').get();
-      return Right(categories);
+      return Right(categories.docs.map((e) => e.data()).toList());
     } catch (e) {
       return const Left('Please try again ');
     }
