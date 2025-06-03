@@ -16,7 +16,7 @@ class ProductFirebaseServiceImpl implements ProductFirebaseService {
             isGreaterThanOrEqualTo: 2,
           )
           .get();
-      return Right(returnData);
+      return Right(returnData.docs.map((e) => e.data()).toList());
     } catch (e) {
       return Left("Please try again later");
     }
