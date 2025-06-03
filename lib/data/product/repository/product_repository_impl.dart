@@ -18,4 +18,18 @@ class ProductRepositoryImpl implements ProductRepository {
       );
     });
   }
+
+  @override
+  Future<Either> getNewIn() async {
+    var data = await sl<ProductFirebaseService>().getNewIn();
+    return data.fold((error) {
+      return Left(error);
+    }, (value) {
+      return Right(
+        List.from(value)
+            .map((e) => ProductModel.fromMap(e).toEntity())
+            .toList(),
+      );
+    });
+  }
 }

@@ -13,6 +13,7 @@ import 'package:ecommerce/domain/auth/usecases/siginin.dart';
 import 'package:ecommerce/domain/category/repository/category.dart';
 import 'package:ecommerce/domain/category/usecases/get_categories.dart';
 import 'package:ecommerce/domain/product/repository/product.dart';
+import 'package:ecommerce/domain/product/usecases/get_new_in.dart';
 import 'package:ecommerce/domain/product/usecases/get_top_selling.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ecommerce/domain/auth/usecases/signup.dart';
@@ -67,4 +68,5 @@ Future<void> initializeProduct() async {
 
   // 注册 UseCase
   sl.registerSingleton<GetTopSellingUseCase>(GetTopSellingUseCase());
+  sl.registerSingleton<GetNewInUseCase>(GetNewInUseCase());
 }
