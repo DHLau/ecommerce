@@ -16,15 +16,15 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BasicAppBar(
-        hideBack: false,
-        title: SearchPageSearchField(),
-      ),
-      body: BlocProvider(
-          create: (context) =>
-              ProductsDisplayCubit(useCase: sl<GetProductByTitleIdUseCase>()),
-          child: BlocBuilder<ProductsDisplayCubit, ProductDisplayState>(
+    return BlocProvider(
+      create: (context) =>
+          ProductsDisplayCubit(useCase: sl<GetProductByTitleIdUseCase>()),
+      child: Scaffold(
+          appBar: BasicAppBar(
+            hideBack: false,
+            title: SearchPageSearchField(),
+          ),
+          body: BlocBuilder<ProductsDisplayCubit, ProductDisplayState>(
             builder: (ctx, state) {
               if (state is ProcuctLoadingState) {
                 return const Center(
