@@ -5,6 +5,7 @@ abstract class ProductFirebaseService {
   Future<Either> getTopSelling();
   Future<Either> getNewIn();
   Future<Either> getProductByCategoryId(String categoryId);
+  Future<Either> getProductByTitle(String title);
 }
 
 class ProductFirebaseServiceImpl implements ProductFirebaseService {
@@ -43,6 +44,19 @@ class ProductFirebaseServiceImpl implements ProductFirebaseService {
       var returnData = await FirebaseFirestore.instance
           .collection('Products')
           .where('categoryId', isEqualTo: categoryId)
+          .get();
+      return Right(returnData.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      return Left("Please try again later");
+    }
+  }
+
+  @override
+  Future<Either> getProductByTitle(String title) async {
+    try {
+      var returnData = await FirebaseFirestore.instance
+          .collection('Products')
+          .where('title', isGreaterThanOrEqualTo: title)
           .get();
       return Right(returnData.docs.map((e) => e.data()).toList());
     } catch (e) {

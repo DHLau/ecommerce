@@ -47,4 +47,18 @@ class ProductRepositoryImpl implements ProductRepository {
       );
     });
   }
+
+  @override
+  Future<Either> getProductByTitle(String title) async {
+    var data = await sl<ProductFirebaseService>().getProductByTitle(title);
+    return data.fold((error) {
+      return Left(error);
+    }, (value) {
+      return Right(
+        List.from(value)
+            .map((e) => ProductModel.fromMap(e).toEntity())
+            .toList(),
+      );
+    });
+  }
 }
