@@ -1,7 +1,9 @@
 import 'package:ecommerce/common/bloc/category/category_display_cubit.dart';
 import 'package:ecommerce/common/bloc/category/category_display_state.dart';
 import 'package:ecommerce/common/helper/images/image_display.dart';
+import 'package:ecommerce/common/helper/navigator/app_navigator.dart';
 import 'package:ecommerce/domain/category/entity/categoryEntity.dart';
+import 'package:ecommerce/presentation/all_categories/pages/all_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +24,7 @@ class Categories extends StatelessWidget {
           if (state is CategoryLoadedState) {
             return Column(
               children: [
-                _title(),
+                _title(context),
                 SizedBox(
                   height: 12,
                 ),
@@ -34,7 +36,7 @@ class Categories extends StatelessWidget {
         }));
   }
 
-  Widget _title() {
+  Widget _title(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -45,7 +47,9 @@ class Categories extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              AppNavigator.push(context, AllCategoriesPage());
+            },
             child: const Text(
               'See All',
               style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
