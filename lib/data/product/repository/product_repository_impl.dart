@@ -34,8 +34,17 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either> getProductByCategoryId(String categoryId) {
-    // TODO: implement getProductByCategoryId
-    throw UnimplementedError();
+  Future<Either> getProductByCategoryId(String categoryId) async {
+    var data =
+        await sl<ProductFirebaseService>().getProductByCategoryId(categoryId);
+    return data.fold((error) {
+      return Left(error);
+    }, (value) {
+      return Right(
+        List.from(value)
+            .map((e) => ProductModel.fromMap(e).toEntity())
+            .toList(),
+      );
+    });
   }
 }
