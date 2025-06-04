@@ -17,7 +17,9 @@ class SearchPageSearchField extends StatelessWidget {
           if (value.isEmpty) {
             context.read<ProductsDisplayCubit>().displayInitial();
           } else {
-            context.read<ProductsDisplayCubit>().displayProducts(params: value);
+            context
+                .read<ProductsDisplayCubit>()
+                .displayProductsWithDebounce(params: value);
           }
         },
         decoration: InputDecoration(
