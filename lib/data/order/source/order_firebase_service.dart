@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class OrderFirebaseService {
   Future<Either> addToCart(AddToCartReq addToCartReq);
+  Future<Either> getCartProduct();
 }
 
 class OrderFirebaseServiceImpl extends OrderFirebaseService {
@@ -18,6 +19,21 @@ class OrderFirebaseServiceImpl extends OrderFirebaseService {
           .collection('Cart')
           .add(addToCartReq.toMap());
       return Right("Add to cart successfully");
+    } catch (e) {
+      return Left("Please try again later");
+    }
+  }
+
+  @override
+  Future<Either> getCartProduct() async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+      var returnData = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user!.uid)
+          .collection('Cart')
+          .get();
+      return Right(returnData.docs.map((e) => e.data()).toList());
     } catch (e) {
       return Left("Please try again later");
     }
