@@ -2,6 +2,8 @@ import 'package:ecommerce/data/auth/repository/auth_repository_impl.dart';
 import 'package:ecommerce/data/auth/source/auth_firebase_service.dart';
 import 'package:ecommerce/data/category/repository/category_impl.dart';
 import 'package:ecommerce/data/category/source/category_firebase_service.dart';
+import 'package:ecommerce/data/order/repository/order_repository_impl.dart';
+import 'package:ecommerce/data/order/source/order_firebase_service.dart';
 import 'package:ecommerce/data/product/repository/product_repository_impl.dart';
 import 'package:ecommerce/data/product/source/product_firebase_service.dart';
 import 'package:ecommerce/domain/auth/repository/auth.dart';
@@ -12,6 +14,8 @@ import 'package:ecommerce/domain/auth/usecases/send_password_reset_email.dart';
 import 'package:ecommerce/domain/auth/usecases/siginin.dart';
 import 'package:ecommerce/domain/category/repository/category.dart';
 import 'package:ecommerce/domain/category/usecases/get_categories.dart';
+import 'package:ecommerce/domain/order/repository/order.dart';
+import 'package:ecommerce/domain/order/usecase/add_to_cart_usecase.dart';
 import 'package:ecommerce/domain/product/repository/product.dart';
 import 'package:ecommerce/domain/product/usecases/get_new_in.dart';
 import 'package:ecommerce/domain/product/usecases/get_products_by_categoryId.dart';
@@ -31,6 +35,7 @@ Future<void> initializeDependencies() async {
   initializeAuth();
   initializeCategory();
   initializeProduct();
+  initializeOrder();
 }
 
 // 这个函数注册了所有与身份验证相关的服务/类：
@@ -75,4 +80,12 @@ Future<void> initializeProduct() async {
       GetProductByCategoryIdUseCase());
   sl.registerSingleton<GetProductByTitleIdUseCase>(
       GetProductByTitleIdUseCase());
+}
+
+Future<void> initializeOrder() async {
+  sl.registerSingleton<OrderFirebaseService>(OrderFirebaseServiceImpl());
+
+  sl.registerSingleton<OrderRepository>(OrderRepositoryImpl());
+
+  sl.registerSingleton<AddToCartUseCase>(AddToCartUseCase());
 }

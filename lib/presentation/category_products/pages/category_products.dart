@@ -2,7 +2,6 @@ import 'package:ecommerce/common/bloc/product/product_display_cubit.dart';
 import 'package:ecommerce/common/bloc/product/product_display_state.dart';
 import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce/common/widgets/product/product_card.dart';
-import 'package:ecommerce/core/configs/theme/app_colors.dart';
 import 'package:ecommerce/domain/category/entity/categoryEntity.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/domain/product/usecases/get_products_by_categoryId.dart';
