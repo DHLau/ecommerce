@@ -4,9 +4,9 @@ import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SelectedQuantity extends StatelessWidget {
+class ProductQuantity extends StatelessWidget {
   final ProductEntity productEntity;
-  const SelectedQuantity({super.key, required this.productEntity});
+  const ProductQuantity({super.key, required this.productEntity});
 
   @override
   Widget build(BuildContext context) {

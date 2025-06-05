@@ -2,6 +2,7 @@ import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_color_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit.dart';
+import 'package:ecommerce/presentation/product_detail/bloc/product_size_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/add_to_bag.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_color.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_images.dart';
@@ -24,6 +25,7 @@ class ProductDetailPage extends StatelessWidget {
           create: (context) => ProductQuanityCubit(),
         ),
         BlocProvider(create: (context) => ProductColorCubit()),
+        BlocProvider(create: (context) => ProductSizeCubit()),
       ],
       child: Scaffold(
           appBar: BasicAppBar(
