@@ -1,6 +1,8 @@
 import 'package:ecommerce/core/configs/theme/app_colors.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
+import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectedQuantity extends StatelessWidget {
   final ProductEntity productEntity;
@@ -22,43 +24,62 @@ class SelectedQuantity extends StatelessWidget {
             Text("Color",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.remove,
-                      size: 30,
+                GestureDetector(
+                  onTap: () {
+                    context.read<ProductQuanityCubit>().decrement();
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.remove,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  "11",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
+                BlocBuilder<ProductQuanityCubit, int>(
+                    builder: (context, state) {
+                  return Container(
+                    alignment: Alignment.center,
+                    width: 40,
+                    child: Text(
+                      "${state.toString()}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  );
+                }),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
+                GestureDetector(
+                  onTap: () {
+                    context.read<ProductQuanityCubit>().increment();
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),

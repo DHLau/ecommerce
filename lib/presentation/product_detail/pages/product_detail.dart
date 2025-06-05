@@ -1,5 +1,7 @@
 import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
+import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit.dart';
+import 'package:ecommerce/presentation/product_detail/widgets/add_to_bag.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_images.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_price.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/selected_color.dart';
@@ -7,6 +9,7 @@ import 'package:ecommerce/presentation/product_detail/widgets/selected_quantity.
 import 'package:ecommerce/presentation/product_detail/widgets/selected_sizes.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductEntity productEntity;
@@ -14,37 +17,47 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: BasicAppBar(
-          hideBack: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductQuanityCubit(),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ProductImages(productEntity: productEntity),
-              const SizedBox(
-                height: 10,
-              ),
-              ProductTitle(productEntity: productEntity),
-              const SizedBox(
-                height: 10,
-              ),
-              ProductPrice(productEntity: productEntity),
-              const SizedBox(
-                height: 20,
-              ),
-              SelectedSizes(productEntity: productEntity),
-              const SizedBox(
-                height: 20,
-              ),
-              SelectedColors(productEntity: productEntity),
-              const SizedBox(
-                height: 20,
-              ),
-              SelectedQuantity(productEntity: productEntity),
-            ],
+      ],
+      child: Scaffold(
+          appBar: BasicAppBar(
+            hideBack: false,
           ),
-        ));
+          bottomNavigationBar: AddToBag(
+            productEntity: productEntity,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProductImages(productEntity: productEntity),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProductTitle(productEntity: productEntity),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProductPrice(productEntity: productEntity),
+                const SizedBox(
+                  height: 20,
+                ),
+                SelectedSizes(productEntity: productEntity),
+                const SizedBox(
+                  height: 20,
+                ),
+                SelectedColors(productEntity: productEntity),
+                const SizedBox(
+                  height: 20,
+                ),
+                SelectedQuantity(productEntity: productEntity),
+              ],
+            ),
+          )),
+    );
   }
 }
