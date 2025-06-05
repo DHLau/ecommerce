@@ -3,11 +3,11 @@ import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_color_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/add_to_bag.dart';
+import 'package:ecommerce/presentation/product_detail/widgets/product_color.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_images.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_price.dart';
-import 'package:ecommerce/presentation/product_detail/widgets/selected_color.dart';
-import 'package:ecommerce/presentation/product_detail/widgets/selected_quantity.dart';
-import 'package:ecommerce/presentation/product_detail/widgets/selected_sizes.dart';
+import 'package:ecommerce/presentation/product_detail/widgets/product_quantity.dart';
+import 'package:ecommerce/presentation/product_detail/widgets/product_sizes.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,15 +48,15 @@ class ProductDetailPage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                SelectedSizes(productEntity: productEntity),
+                ProductSizes(productEntity: productEntity),
                 const SizedBox(
                   height: 20,
                 ),
-                SelectedColors(productEntity: productEntity),
+                ProductColor(productEntity: productEntity),
                 const SizedBox(
                   height: 20,
                 ),
-                SelectedQuantity(productEntity: productEntity),
+                ProductQuantity(productEntity: productEntity),
               ],
             ),
           )),

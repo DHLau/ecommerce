@@ -2,9 +2,9 @@ import 'package:ecommerce/core/configs/theme/app_colors.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
-class SelectedSizes extends StatelessWidget {
+class ProductSizes extends StatelessWidget {
   final ProductEntity productEntity;
-  const SelectedSizes({super.key, required this.productEntity});
+  const ProductSizes({super.key, required this.productEntity});
 
   @override
   Widget build(BuildContext context) {

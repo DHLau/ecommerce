@@ -7,9 +7,9 @@ import 'package:ecommerce/presentation/product_detail/widgets/sheets/product_col
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SelectedColors extends StatelessWidget {
+class ProductColor extends StatelessWidget {
   final ProductEntity productEntity;
-  const SelectedColors({super.key, required this.productEntity});
+  const ProductColor({super.key, required this.productEntity});
 
   @override
   Widget build(BuildContext context) {

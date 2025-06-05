@@ -21,7 +21,7 @@ class SelectedQuantity extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Color",
+            Text("Quantity",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
