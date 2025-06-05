@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:convert';
+
 import 'package:ecommerce/domain/order/entity/product_ordered_entity.dart';
 
 class ProductOrderedModel {
@@ -12,6 +14,7 @@ class ProductOrderedModel {
   final double totalPrice;
   final String productImage;
   final String createDate;
+  final String id;
 
   ProductOrderedModel({
     required this.productId,
@@ -23,6 +26,7 @@ class ProductOrderedModel {
     required this.totalPrice,
     required this.productImage,
     required this.createDate,
+    required this.id,
   });
 
   factory ProductOrderedModel.fromMap(Map<String, dynamic> map) {
@@ -36,6 +40,7 @@ class ProductOrderedModel {
       totalPrice: map['totalPrice'] as double,
       productImage: map['productImage'] as String,
       createDate: map['createDate'] as String,
+      id: map['id'] as String,
     );
   }
 }
@@ -43,6 +48,7 @@ class ProductOrderedModel {
 extension ProductOrderedXModel on ProductOrderedModel {
   ProductOrderedEntity toEntity() {
     return ProductOrderedEntity(
+      id: id,
       productId: productId,
       productTitle: productTitle,
       productQuantity: productQuantity,

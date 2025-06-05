@@ -10,8 +10,10 @@ class ProductOrderedEntity {
   final double totalPrice;
   final String productImage;
   final String createDate;
+  final String id;
 
   ProductOrderedEntity({
+    required this.id,
     required this.productId,
     required this.productTitle,
     required this.productQuantity,
@@ -25,6 +27,7 @@ class ProductOrderedEntity {
 
   factory ProductOrderedEntity.fromMap(Map<String, dynamic> map) {
     return ProductOrderedEntity(
+      id: map['id'] as String,
       productId: map['productId'] as String,
       productTitle: map['productTitle'] as String,
       productQuantity: map['productQuantity'] as int,

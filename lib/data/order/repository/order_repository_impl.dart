@@ -24,4 +24,14 @@ class OrderRepositoryImpl implements OrderRepository {
       );
     });
   }
+
+  @override
+  Future<Either> removeCartProduct(String id) async {
+    var returedData = await sl<OrderFirebaseService>().removeCartProduct(id);
+    return returedData.fold((error) {
+      return Left(error);
+    }, (data) {
+      return Right(data);
+    });
+  }
 }
