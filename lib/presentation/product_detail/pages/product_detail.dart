@@ -1,10 +1,12 @@
 import 'package:ecommerce/common/bloc/button/button_state_cubit.dart';
 import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
+import 'package:ecommerce/presentation/product_detail/bloc/favorite_icon_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_color_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_quanity_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/bloc/product_size_cubit.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/add_to_bag.dart';
+import 'package:ecommerce/presentation/product_detail/widgets/favorite_button.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_color.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_images.dart';
 import 'package:ecommerce/presentation/product_detail/widgets/product_price.dart';
@@ -28,10 +30,16 @@ class ProductDetailPage extends StatelessWidget {
         BlocProvider(create: (context) => ProductColorCubit()),
         BlocProvider(create: (context) => ProductSizeCubit()),
         BlocProvider(create: (context) => ButtonStateCubit()),
+        BlocProvider(
+            create: (context) =>
+                FavoriteIconCubit()..isFavorite(productEntity.productId))
       ],
       child: Scaffold(
           appBar: BasicAppBar(
             hideBack: false,
+            action: FavoriteButton(
+              productEntity: productEntity,
+            ),
           ),
           bottomNavigationBar: AddToBag(
             productEntity: productEntity,
