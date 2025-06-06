@@ -1,4 +1,5 @@
 import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
+import 'package:ecommerce/core/configs/assets/app_vectors.dart';
 import 'package:ecommerce/domain/order/entity/product_ordered_entity.dart';
 import 'package:ecommerce/presentation/cart/Widgets/check_out.dart';
 import 'package:ecommerce/presentation/cart/Widgets/product_ordered_card.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce/presentation/cart/bloc/cart_products_display_cubit.dar
 import 'package:ecommerce/presentation/cart/bloc/cart_products_display_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -29,13 +31,15 @@ class CartPage extends StatelessWidget {
               );
             }
             if (state is CartProductLoaded) {
-              return Stack(children: [
-                _buildCartProductList(context, state.products),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _checkOut(state.products),
-                )
-              ]);
+              return state.products.isEmpty
+                  ? Center(child: _cartIsEmpty())
+                  : Stack(children: [
+                      _buildCartProductList(context, state.products),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: _checkOut(state.products),
+                      )
+                    ]);
             }
             if (state is CartProductFailure) {
               return Center(
@@ -69,7 +73,20 @@ class CartPage extends StatelessWidget {
     return Checkout(products: products);
   }
 
-  Widget _buildCartEmpty() {
-    return Container();
+  Widget _cartIsEmpty() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(AppVectors.cartBag),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text(
+          "Cart is empty",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+        )
+      ],
+    );
   }
 }

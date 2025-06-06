@@ -75,6 +75,16 @@ class OrderFirebaseServiceImpl extends OrderFirebaseService {
           .doc(user!.uid)
           .collection('Orders')
           .add(orderRegistrationReq.toMap());
+
+      // 删除购物车数据
+      for (var item in orderRegistrationReq.products) {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user!.uid)
+            .collection('Cart')
+            .doc(item.id)
+            .delete();
+      }
       return Right('Order Registered successfully');
     } catch (e) {
       return Left("Please try again later");
