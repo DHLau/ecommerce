@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:convert';
+
 import 'package:ecommerce/domain/order/entity/product_ordered_entity.dart';
 
 class ProductOrderedModel {
@@ -41,11 +43,43 @@ class ProductOrderedModel {
       id: map['id'] as String,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'productId': productId,
+      'productTitle': productTitle,
+      'productQuantity': productQuantity,
+      'productColor': productColor,
+      'productSize': productSize,
+      'productPrice': productPrice,
+      'totalPrice': totalPrice,
+      'productImage': productImage,
+      'createDate': createDate,
+      'id': id,
+    };
+  }
 }
 
 extension ProductOrderedXModel on ProductOrderedModel {
   ProductOrderedEntity toEntity() {
     return ProductOrderedEntity(
+      id: id,
+      productId: productId,
+      productTitle: productTitle,
+      productQuantity: productQuantity,
+      productColor: productColor,
+      productSize: productSize,
+      productPrice: productPrice,
+      totalPrice: totalPrice,
+      productImage: productImage,
+      createDate: createDate,
+    );
+  }
+}
+
+extension ProductOrderedXEntity on ProductOrderedEntity {
+  ProductOrderedModel fromEntity() {
+    return ProductOrderedModel(
       id: id,
       productId: productId,
       productTitle: productTitle,
