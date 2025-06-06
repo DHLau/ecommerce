@@ -28,7 +28,7 @@ class CheckOutPage extends StatelessWidget {
     return TextField(
       controller: _addressController,
       minLines: 2,
-      maxLength: 4,
+      maxLines: 4,
       decoration: InputDecoration(hintText: "Shipping Address"),
     );
   }
