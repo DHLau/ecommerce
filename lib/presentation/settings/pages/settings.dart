@@ -12,8 +12,17 @@ class SettingsPage extends StatelessWidget {
       appBar: BasicAppBar(
         title: Text("Settings"),
       ),
-      body: Column(
-        children: [MyFavortiesTitle(), MyOrdersTitle()],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: Column(
+          children: [
+            MyFavortiesTitle(),
+            SizedBox(
+              height: 12,
+            ),
+            MyOrdersTitle()
+          ],
+        ),
       ),
     );
   }
