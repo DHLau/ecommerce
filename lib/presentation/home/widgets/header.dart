@@ -6,6 +6,7 @@ import 'package:ecommerce/domain/auth/entity/user_entity.dart';
 import 'package:ecommerce/presentation/cart/pages/cart.dart';
 import 'package:ecommerce/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:ecommerce/presentation/home/bloc/user_info_display_state.dart';
+import 'package:ecommerce/presentation/settings/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,16 +45,21 @@ class Header extends StatelessWidget {
   }
 
   Widget _profileImage(UserEntity user, BuildContext context) {
-    return Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: user.image.isEmpty
-                  ? AssetImage(AppImages.profile)
-                  : NetworkImage(user.image)),
-          shape: BoxShape.circle,
-        ));
+    return GestureDetector(
+      onTap: () {
+        AppNavigator.push(context, SettingsPage());
+      },
+      child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: user.image.isEmpty
+                    ? AssetImage(AppImages.profile)
+                    : NetworkImage(user.image)),
+            shape: BoxShape.circle,
+          )),
+    );
   }
 
   Widget _gender(UserEntity user, BuildContext context) {
