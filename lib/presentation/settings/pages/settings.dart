@@ -1,4 +1,6 @@
 import 'package:ecommerce/common/widgets/appbar/app_bar.dart';
+import 'package:ecommerce/presentation/settings/widgets/my_favorties_title.dart';
+import 'package:ecommerce/presentation/settings/widgets/my_orders.title.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -9,6 +11,9 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: BasicAppBar(
         title: Text("Settings"),
+      ),
+      body: Column(
+        children: [MyFavortiesTitle(), MyOrdersTitle()],
       ),
     );
   }
