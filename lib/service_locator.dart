@@ -77,8 +77,7 @@ Future<void> initializeProduct() async {
   // 注册 Product Firebase 的实现
   sl.registerSingleton<ProductFirebaseService>(ProductFirebaseServiceImpl());
   // 本地实现
-  final localService = await ProductLocalServiceImpl.create();
-  sl.registerSingleton<ProductLocalService>(localService);
+  sl.registerSingleton<ProductLocalService>(ProductLocalServiceImpl());
 
   // 注册仓库
   sl.registerSingleton<ProductRepository>(ProductRepositoryImpl());
