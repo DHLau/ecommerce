@@ -7,13 +7,23 @@ import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity entity;
-  const ProductCard({super.key, required this.entity});
+  const ProductCard({super.key, required this.entity, this.needToReload});
+  final Function? needToReload;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.push(context, ProductDetailPage(productEntity: entity));
+        AppNavigator.push(
+            context,
+            ProductDetailPage(
+              productEntity: entity,
+              onFavoriteToggled: () {
+                if (needToReload != null) {
+                  needToReload!();
+                }
+              },
+            ));
       },
       child: Container(
         width: 180,

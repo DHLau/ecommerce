@@ -6,12 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoriteButton extends StatelessWidget {
   final ProductEntity productEntity;
-  const FavoriteButton({super.key, required this.productEntity});
+  final VoidCallback? onTap;
+  const FavoriteButton({super.key, required this.productEntity, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
+          if (onTap != null) {
+            onTap!();
+          }
           context.read<FavoriteIconCubit>().onTap(productEntity);
         },
         icon: Container(

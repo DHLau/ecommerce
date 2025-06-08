@@ -7,18 +7,19 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final bool hideBack;
   final double? height;
+  final Function? backClick;
   const BasicAppBar({
     this.title,
     this.hideBack = false,
     this.action,
     this.backgroundColor,
     this.height,
+    this.backClick,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return AppBar(
       backgroundColor: backgroundColor ?? Colors.transparent,
       elevation: 0, // 设置AppBar阴影高度为0，去除默认阴影效果
@@ -28,27 +29,30 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title ?? const Text(''),
       titleSpacing: 0,
       actions: [action ?? Container()],
-      leading:
-          hideBack
-              ? null
-              : IconButton(
-                icon: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                    color: AppColors.secondBackground,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Colors.white,
-                  ),
+      leading: hideBack
+          ? null
+          : IconButton(
+              icon: Container(
+                height: 50,
+                width: 50,
+                decoration: const BoxDecoration(
+                  color: AppColors.secondBackground,
+                  shape: BoxShape.circle,
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 15,
+                  color: Colors.white,
+                ),
               ),
+              onPressed: () {
+                if (backClick != null) {
+                  backClick!();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            ),
     );
   }
 

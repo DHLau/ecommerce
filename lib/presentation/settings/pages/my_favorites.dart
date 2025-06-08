@@ -22,8 +22,8 @@ class MyFavoritesPage extends StatelessWidget {
           providers: [
             BlocProvider(
                 create: (context) => ProductsDisplayCubit(
-                    useCase: sl<GetFavoritesProductsUseCase>())),
-            BlocProvider(create: (context) => sl<FavoriteIconCubit>())
+                    useCase: sl<GetFavoritesProductsUseCase>())
+                  ..displayProducts()),
           ],
           child: BlocBuilder<ProductsDisplayCubit, ProductDisplayState>(
               builder: (context, state) {
@@ -56,6 +56,9 @@ class MyFavoritesPage extends StatelessWidget {
       itemBuilder: (context, index) {
         return ProductCard(
           entity: products[index],
+          needToReload: () {
+            context.read<ProductsDisplayCubit>().displayProducts();
+          },
         );
       },
       itemCount: products.length,
