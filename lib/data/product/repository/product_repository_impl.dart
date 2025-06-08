@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/data/product/models/product_model.dart';
 import 'package:ecommerce/data/product/source/product_firebase_service.dart';
+import 'package:ecommerce/data/product/source/product_local_service.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/domain/product/repository/product.dart';
 import 'package:ecommerce/service_locator.dart';
@@ -89,6 +90,23 @@ class ProductRepositoryImpl implements ProductRepository {
         List.from(value)
             .map((e) => ProductModel.fromMap(e).toEntity())
             .toList(),
+      );
+    });
+  }
+
+  @override
+  Future<void> cacheFavoriteProducts(List<ProductEntity> models) async {
+    await sl<ProductLocalService>().cacheFavoriteProducts(models);
+  }
+
+  @override
+  Future<Either> getCachedFavoriteProducts() async {
+    var data = await sl<ProductLocalService>().getCachedFavoriteProducts();
+    return data.fold((error) {
+      return Left(error);
+    }, (value) {
+      return Right(
+        value.map((e) => ProductModel.fromJson(e).toEntity()).toList(),
       );
     });
   }

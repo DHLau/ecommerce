@@ -9,4 +9,10 @@ abstract class ProductRepository {
   Future<Either> addOrRemoveFavoriteProduct(ProductEntity entity);
   Future<bool> isFavorite(String productId);
   Future<Either> getFavoriteProducts();
+
+  /// 本地收藏
+  Future<void> cacheFavoriteProducts(List<ProductEntity> models);
+
+  /// 获取本地收藏
+  Future<Either> getCachedFavoriteProducts();
 }

@@ -2,7 +2,9 @@ import 'package:ecommerce/common/bloc/product/product_display_cubit.dart';
 import 'package:ecommerce/common/bloc/product/product_display_state.dart';
 import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/common/widgets/product/product_card.dart';
+import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/domain/product/usecases/get_favorites_products.dart';
+import 'package:ecommerce/presentation/product_detail/bloc/favorite_icon_cubit.dart';
 import 'package:ecommerce/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +18,13 @@ class MyFavoritesPage extends StatelessWidget {
       appBar: BasicAppBar(
         title: Text("My Favorites"),
       ),
-      body: BlocProvider(
-          create: (context) =>
-              ProductsDisplayCubit(useCase: sl<GetFavoritesProductsUseCase>())
-                ..displayProducts(),
+      body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => ProductsDisplayCubit(
+                    useCase: sl<GetFavoritesProductsUseCase>())),
+            BlocProvider(create: (context) => sl<FavoriteIconCubit>())
+          ],
           child: BlocBuilder<ProductsDisplayCubit, ProductDisplayState>(
               builder: (context, state) {
             if (state is ProcuctLoadingState) {
@@ -27,29 +32,33 @@ class MyFavoritesPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            if (state is ProductsLoadedState) {
-              return Container(
-                height: 300,
-                width: double.infinity,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                        entity: state.products[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: 12,
-                      );
-                    },
-                    itemCount: state.products.length),
+            if (state is ProductLoadFailureState) {
+              return Center(
+                child: Text("Please try again"),
               );
+            }
+            if (state is ProductsLoadedState) {
+              return _buildProductList(state.products);
             }
             return Container();
           })),
+    );
+  }
+
+  Widget _buildProductList(List<ProductEntity> products) {
+    return GridView.builder(
+      padding: EdgeInsets.all(12),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 0.6),
+      itemBuilder: (context, index) {
+        return ProductCard(
+          entity: products[index],
+        );
+      },
+      itemCount: products.length,
     );
   }
 }

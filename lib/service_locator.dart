@@ -6,6 +6,7 @@ import 'package:ecommerce/data/order/repository/order_repository_impl.dart';
 import 'package:ecommerce/data/order/source/order_firebase_service.dart';
 import 'package:ecommerce/data/product/repository/product_repository_impl.dart';
 import 'package:ecommerce/data/product/source/product_firebase_service.dart';
+import 'package:ecommerce/data/product/source/product_local_service.dart';
 import 'package:ecommerce/domain/auth/repository/auth.dart';
 import 'package:ecommerce/domain/auth/usecases/get_ages.dart';
 import 'package:ecommerce/domain/auth/usecases/get_user.dart';
@@ -75,6 +76,9 @@ Future<void> initializeCategory() async {
 Future<void> initializeProduct() async {
   // 注册 Product Firebase 的实现
   sl.registerSingleton<ProductFirebaseService>(ProductFirebaseServiceImpl());
+  // 本地实现
+  final localService = await ProductLocalServiceImpl.create();
+  sl.registerSingleton<ProductLocalService>(localService);
 
   // 注册仓库
   sl.registerSingleton<ProductRepository>(ProductRepositoryImpl());
