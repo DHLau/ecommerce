@@ -4,7 +4,6 @@ import 'package:ecommerce/common/index.dart';
 import 'package:ecommerce/common/widgets/product/product_card.dart';
 import 'package:ecommerce/domain/product/entity/product_entity.dart';
 import 'package:ecommerce/domain/product/usecases/get_favorites_products.dart';
-import 'package:ecommerce/presentation/product_detail/bloc/favorite_icon_cubit.dart';
 import 'package:ecommerce/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
