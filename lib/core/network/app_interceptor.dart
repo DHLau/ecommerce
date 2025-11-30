@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../domain/auth_dio/repository/auth_repository.dart';
+import '../../domain/auth_dio/repository/auth_dio_repository.dart';
 
 class AppInterceptor extends Interceptor {
   final AuthDioRepository authRepository;

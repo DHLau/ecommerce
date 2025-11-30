@@ -11,6 +11,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: BasicAppBar(
         title: Text("Settings"),
+        hideBack: true,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12),

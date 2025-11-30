@@ -34,6 +34,7 @@ import 'package:ecommerce/domain/product/usecases/get_products_by_categoryId.dar
 import 'package:ecommerce/domain/product/usecases/get_products_by_title.dart';
 import 'package:ecommerce/domain/product/usecases/get_top_selling.dart';
 import 'package:ecommerce/domain/product/usecases/is_favorite.dart';
+import 'package:ecommerce/presentation/bottom_navi/bloc/bottom_navi_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ecommerce/domain/auth/usecases/signup.dart';
 
@@ -47,6 +48,7 @@ final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   initDio();
   initAuthRemote();
+  initBottmNavi();
   initializeAuth();
   initializeCategory();
   initializeProduct();
@@ -91,6 +93,10 @@ Future<void> initDio() async {
   sl.registerLazySingleton<DioClient>(
     () => DioClient(sl<Dio>(), sl<AppInterceptor>()),
   );
+}
+
+Future<void> initBottmNavi() async {
+  sl.registerFactory<BottomNavBloc>(() => BottomNavBloc());
 }
 
 Future<void> initAuthRemote() async {
