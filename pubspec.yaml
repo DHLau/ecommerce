@@ -41,6 +41,7 @@ dependencies:
   flutter_svg:
   flutter_bloc:
   dartz:
+  dio:
   # 依頼注入
   get_it:
   
