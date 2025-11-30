@@ -1,3 +1,9 @@
+import 'package:dio/dio.dart';
+import 'package:ecommerce/core/network/app_interceptor.dart';
+import 'package:ecommerce/core/network/dio_client.dart';
+import 'package:ecommerce/data/auth_dio/source/auth_local_datasource.dart';
+import 'package:ecommerce/data/auth_dio/source/auth_remote_datasource.dart';
+import 'package:ecommerce/domain/auth_dio/repository/auth_dio_repository.dart';
 import 'package:ecommerce/data/auth/repository/auth_repository_impl.dart';
 import 'package:ecommerce/data/auth/source/auth_firebase_service.dart';
 import 'package:ecommerce/data/category/repository/category_impl.dart';
@@ -39,6 +45,8 @@ final sl = GetIt.instance;
 
 // 这个函数注册了所有依赖的服务/类（例如：服务类、仓库类、用例类）：
 Future<void> initializeDependencies() async {
+  initDio();
+  initAuthRemote();
   initializeAuth();
   initializeCategory();
   initializeProduct();
@@ -60,6 +68,39 @@ Future<void> initializeAuth() async {
   );
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
   sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
+}
+
+Future<void> initDio() async {
+  // 1. Dio 基础配置
+  sl.registerLazySingleton<Dio>(
+    () => Dio(
+      BaseOptions(
+        baseUrl: "https://example.com/api",
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      ),
+    ),
+  );
+
+  // 2. AppInterceptor
+  sl.registerLazySingleton<AppInterceptor>(
+    () => AppInterceptor(sl<AuthDioRepository>()),
+  );
+
+  // 3. DioClient
+  sl.registerLazySingleton<DioClient>(
+    () => DioClient(sl<Dio>(), sl<AppInterceptor>()),
+  );
+}
+
+Future<void> initAuthRemote() async {
+  sl.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSource(),
+  );
+
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(sl<DioClient>()),
+  );
 }
 
 // 这个函数注册了所有与 Category 相关的服务/类：

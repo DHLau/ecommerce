@@ -9,10 +9,7 @@ class AuthRemoteDataSource {
   Future<LoginResponseModel> login(String email, String password) async {
     final response = await client.post(
       "/login",
-      data: {
-        "email": email,
-        "password": password,
-      },
+      data: {"email": email, "password": password},
     );
     return LoginResponseModel.fromJson(response.data);
   }
